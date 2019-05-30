@@ -19,7 +19,7 @@ public class DaoCliente {
     public void inserir(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO Cliente(cpfCliente,nome,endereco,cidade,uf,cep,ddd,telefone,limiteCred,limiteDisp) VALUES(?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO Cliente(cpfCliente,nome,endereco,cidade,uf,cep,ddd,telefone,limiteCred,limiteDisp) VALUES(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1,cliente.getCpf());
             ps.setString(2,cliente.getNome());
             ps.setString(3,cliente.getEndereco());
@@ -100,7 +100,5 @@ public class DaoCliente {
         }
         return (c);
     } 
-    
-    
     
 }
