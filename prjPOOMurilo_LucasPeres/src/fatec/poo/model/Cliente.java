@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * @author 0030481721015
  */
 public class Cliente extends Pessoa{
+   private String cpf, nome;
    private double limiteCred;
    private double limiteDisp;
    private Pessoa pessoa;
@@ -17,6 +18,14 @@ public class Cliente extends Pessoa{
         this.limiteDisp = limiteCred;
     }
     
+    public String getCpfCli() {
+        return cpf;
+    }
+    
+     public String getNome() {
+        return nome;
+    }
+      
     public double getLimiteCred() {
         return limiteCred;
     }
