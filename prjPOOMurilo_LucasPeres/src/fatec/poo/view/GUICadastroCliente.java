@@ -1,16 +1,9 @@
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoCliente;
 import fatec.poo.model.Cliente;
 import javax.swing.JOptionPane;
-
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -61,6 +54,14 @@ public class GUICadastroCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel6.setText("Limite de Crédito");
 
@@ -83,12 +84,22 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         txtEndereco.setEnabled(false);
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alternar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("CPF");
 
@@ -103,21 +114,21 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         });
 
         try {
-            txtFormatCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### ,### , ### -##  ")));
+            txtFormatCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###,###,###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtFormatCPF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFormatCPFActionPerformed(evt);
-            }
-        });
 
         txtLimiteCred.setEnabled(false);
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("nome");
 
@@ -126,11 +137,6 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         jLabel3.setText("Endereço");
 
         cmbxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        cmbxUF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbxUFActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Cidade");
 
@@ -249,21 +255,112 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFormatCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFormatCPFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFormatCPFActionPerformed
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+       cliente = null;
+        cliente = daoCliente.consultar(txtFormatCPF.getText().replaceAll("[,-]", ""));
+      
+        System.out.println(cliente); 
+        
+        if (cliente == null) {
+            txtFormatCPF.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtCidade.setEnabled(true);
+            cmbxUF.setEnabled(true);
+            txtDDD.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtCEP.setEnabled(true);
+            txtLimiteCred.setEnabled(true);
+            txtNome.requestFocus();
+           
+            btnConsulta.setEnabled(false);
+            btnIncluir.setEnabled(true);
+        }
+        else {
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtCidade.setEnabled(true);
+            cmbxUF.setEnabled(true);
+            txtDDD.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtCEP.setEnabled(true);
+            txtLimiteCred.setEnabled(true);
+            txtNome.setText(cliente.getNome());
+            txtEndereco.setText(cliente.getEndereco());
+            txtCidade.setText(cliente.getCidade());
+            cmbxUF.setSelectedItem(cliente.getUf());
+            txtDDD.setText(cliente.getDdd());
+            txtTelefone.setText(cliente.getTelefone());
+            txtCEP.setText(cliente.getCep());
+            txtLimiteCred.setText(Double.toString(cliente.getLimiteCred()));
+            lbllLimiteDisp.setText(Double.toString(cliente.getLimiteDisp()));
+           
+            btnConsulta.setEnabled(false);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnConsultaActionPerformed
+       
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        
+        cliente = new Cliente(txtFormatCPF.getText().replaceAll("[,-]", ""),txtNome.getText(),Double.parseDouble(txtLimiteCred.getText()));
+        cliente.setEndereco(txtEndereco.getText());
+        cliente.setCidade(txtCidade.getText());
+        cliente.setUf(String.valueOf(cmbxUF.getSelectedItem()));
+        cliente.setDdd(txtDDD.getText());
+        cliente.setTelefone(txtTelefone.getText());
+        cliente.setCep(txtCEP.getText());
+        cliente.setLimiteCred(Double.parseDouble(txtLimiteCred.getText()));
+       
+        daoCliente.inserir(cliente);
+       
+        txtFormatCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtLimiteCred.setEnabled(false);
+        txtFormatCPF.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtCEP.setText("");
+        txtLimiteCred.setText("");
+       
+        btnConsulta.setEnabled(true);
+        btnIncluir.setEnabled(false);
+    }//GEN-LAST:event_btnIncluirActionPerformed
 
-    private void cmbxUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxUFActionPerformed
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbxUFActionPerformed
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
-        cliente = null;
-    }//GEN-LAST:event_btnConsultaActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("SYSTEM","Lelo#2000");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
+        daoCliente = new DaoCliente(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -327,6 +424,7 @@ public class GUICadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
     //private DaoProjeto daoProjeto=null;
+    private DaoCliente daoCliente=null;
     private Cliente cliente=null;
     private Conexao conexao=null;
 }
