@@ -3,6 +3,7 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCliente;
 import fatec.poo.model.Cliente;
+import fatec.poo.model.Pessoa;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,7 +33,6 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
         btnConsulta = new javax.swing.JButton();
-        txtNome = new javax.swing.JTextField();
         btnIncluir = new javax.swing.JButton();
         txtEndereco = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
@@ -51,6 +51,7 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lbllLimiteDisp = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
@@ -78,8 +79,6 @@ public class GUICadastroCliente extends javax.swing.JFrame {
                 btnConsultaActionPerformed(evt);
             }
         });
-
-        txtNome.setEnabled(false);
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
@@ -148,6 +147,8 @@ public class GUICadastroCliente extends javax.swing.JFrame {
 
         lbllLimiteDisp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtNome.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,10 +176,10 @@ public class GUICadastroCliente extends javax.swing.JFrame {
                                             .addComponent(jLabel7)
                                             .addGap(18, 18, 18)
                                             .addComponent(cmbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtFormatCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNome)
-                                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
@@ -285,6 +286,7 @@ public class GUICadastroCliente extends javax.swing.JFrame {
             txtTelefone.setEnabled(true);
             txtCEP.setEnabled(true);
             txtLimiteCred.setEnabled(true);
+            
             txtNome.setText(cliente.getNome());
             txtEndereco.setText(cliente.getEndereco());
             txtCidade.setText(cliente.getCidade());
@@ -294,7 +296,7 @@ public class GUICadastroCliente extends javax.swing.JFrame {
             txtCEP.setText(cliente.getCep());
             txtLimiteCred.setText(Double.toString(cliente.getLimiteCred()));
             lbllLimiteDisp.setText(Double.toString(cliente.getLimiteDisp()));
-           
+          
             btnConsulta.setEnabled(false);
             btnIncluir.setEnabled(false);
             btnAlterar.setEnabled(true);
@@ -343,7 +345,33 @@ public class GUICadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?")== 0){
+            daoCliente.excluir(cliente);
+            
+            txtFormatCPF.setEnabled(true);
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            cmbxUF.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCEP.setEnabled(false);
+            txtLimiteCred.setEnabled(false);
+            txtFormatCPF.setText("");
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            cmbxUF.setSelectedItem("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtCEP.setText("");
+            txtLimiteCred.setText("");
+            
+            btnConsulta.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

@@ -53,11 +53,11 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="cmbxUF" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                           <Component id="txtFormatCPF" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
-                                          <Component id="txtNome" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtEndereco" alignment="0" min="-2" pref="382" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="txtNome" alignment="1" min="-2" pref="382" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
@@ -184,11 +184,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultaActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtNome">
-      <Properties>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnIncluir">
       <Properties>
@@ -344,6 +339,11 @@
             <EtchetBorder/>
           </Border>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtNome">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

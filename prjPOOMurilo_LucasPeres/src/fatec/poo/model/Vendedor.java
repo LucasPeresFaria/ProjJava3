@@ -7,10 +7,10 @@ import java.util.ArrayList;
  */
 public class Vendedor extends Pessoa{
     private double salarioBase, taxaComissao;
-    ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+    private ArrayList<Pedido> pedidos;
 
     public Vendedor(String cpf, String nome, double salarioBase) {
-        super(cpf,nome);
+        super(cpf, nome);
         this.salarioBase = salarioBase;
         pedidos = new ArrayList<Pedido>();
     }
@@ -24,11 +24,11 @@ public class Vendedor extends Pessoa{
     }
 
     public double getTaxaComissao() {
-        return taxaComissao;
+        return taxaComissao*100;
     }
 
     public void setTaxaComissao(double taxaComissao) {
-        this.taxaComissao = taxaComissao;
+        this.taxaComissao = taxaComissao/100;
     }
     
     /*----------------Métodos operacionais-------------------*/

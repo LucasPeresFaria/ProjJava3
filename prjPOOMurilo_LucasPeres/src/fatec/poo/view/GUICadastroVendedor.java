@@ -1,17 +1,15 @@
 package fatec.poo.view;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoVendedor;
+import fatec.poo.model.Vendedor;
+import fatec.poo.model.Pessoa;
+import javax.swing.JOptionPane;
 
 /**
- *
  * @author Lucas
  */
 public class GUICadastroVendedor extends javax.swing.JFrame {
-
     /**
      * Creates new form GUICadastroVendedor
      */
@@ -55,6 +53,14 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Vendedor");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel8.setText("CEP");
 
@@ -85,6 +91,11 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
 
         btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsulta.setText("Consultar");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -101,6 +112,11 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         cmbxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         cmbxUF.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +142,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         jLabel6.setText("Salário Base");
 
         try {
-            txtFormatCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### ,### , ### -##  ")));
+            txtFormatCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###,###,###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -263,6 +279,98 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("SYSTEM","Lelo#2000");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
+        daoVendedor = new DaoVendedor(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        vendedor = null;
+        vendedor = daoVendedor.consultar(txtFormatCPF.getText().replaceAll("[,-]", ""));      
+        
+        if (vendedor == null) {
+            txtFormatCPF.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtCidade.setEnabled(true);
+            cmbxUF.setEnabled(true);
+            txtDDD.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtCEP.setEnabled(true);
+            txtSalarioBase.setEnabled(true);
+            txtNome.requestFocus();
+           
+            btnConsulta.setEnabled(false);
+            btnIncluir.setEnabled(true);
+        }
+        else {
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtCidade.setEnabled(true);
+            cmbxUF.setEnabled(true);
+            txtDDD.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtCEP.setEnabled(true);
+            txtSalarioBase.setEnabled(true);
+            
+            txtNome.setText(vendedor.getNome());
+            txtEndereco.setText(vendedor.getEndereco());
+            txtCidade.setText(vendedor.getCidade());
+            cmbxUF.setSelectedItem(vendedor.getUf());
+            txtDDD.setText(vendedor.getDdd());
+            txtTelefone.setText(vendedor.getTelefone());
+            txtCEP.setText(vendedor.getCep());
+            txtSalarioBase.setText(Double.toString(vendedor.getSalarioBase()));
+           
+            btnConsulta.setEnabled(false);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnConsultaActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+         vendedor = new Vendedor(txtFormatCPF.getText().replaceAll("[,-]", ""),txtNome.getText(),Double.parseDouble(txtSalarioBase.getText()));
+        vendedor.setEndereco(txtEndereco.getText());
+        vendedor.setCidade(txtCidade.getText());
+        vendedor.setUf(String.valueOf(cmbxUF.getSelectedItem()));
+        vendedor.setDdd(txtDDD.getText());
+        vendedor.setTelefone(txtTelefone.getText());
+        vendedor.setCep(txtCEP.getText());
+        vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
+  
+        daoVendedor.inserir(vendedor);
+       
+        txtFormatCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtSalarioBase.setEnabled(false);
+        txtFormatCPF.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtCEP.setText("");
+        txtSalarioBase.setText("");
+       
+        btnConsulta.setEnabled(true);
+        btnIncluir.setEnabled(false);
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -324,4 +432,8 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtTaxaComiss;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+
+    private DaoVendedor daoVendedor=null;
+    private Vendedor vendedor=null;
+    private Conexao conexao=null;
 }
