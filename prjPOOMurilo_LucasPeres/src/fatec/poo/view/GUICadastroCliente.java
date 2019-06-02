@@ -290,10 +290,10 @@ public class GUICadastroCliente extends javax.swing.JFrame {
             txtNome.setText(cliente.getNome());
             txtEndereco.setText(cliente.getEndereco());
             txtCidade.setText(cliente.getCidade());
-            cmbxUF.setSelectedItem(cliente.getUf());
-            txtDDD.setText(cliente.getDdd());
+            cmbxUF.setSelectedItem(cliente.getUF());
+            txtDDD.setText(cliente.getDDD());
             txtTelefone.setText(cliente.getTelefone());
-            txtCEP.setText(cliente.getCep());
+            txtCEP.setText(cliente.getCEP());
             txtLimiteCred.setText(Double.toString(cliente.getLimiteCred()));
             lbllLimiteDisp.setText(Double.toString(cliente.getLimiteDisp()));
           
@@ -309,10 +309,10 @@ public class GUICadastroCliente extends javax.swing.JFrame {
         cliente = new Cliente(txtFormatCPF.getText().replaceAll("[,-]", ""),txtNome.getText(),Double.parseDouble(txtLimiteCred.getText()));
         cliente.setEndereco(txtEndereco.getText());
         cliente.setCidade(txtCidade.getText());
-        cliente.setUf(String.valueOf(cmbxUF.getSelectedItem()));
-        cliente.setDdd(txtDDD.getText());
+        cliente.setUF(String.valueOf(cmbxUF.getSelectedItem()));
+        cliente.setDDD(txtDDD.getText());
         cliente.setTelefone(txtTelefone.getText());
-        cliente.setCep(txtCEP.getText());
+        cliente.setCEP(txtCEP.getText());
         cliente.setLimiteCred(Double.parseDouble(txtLimiteCred.getText()));
        
         daoCliente.inserir(cliente);

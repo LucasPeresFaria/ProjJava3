@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 /**
  *
- * @author 0030481721015
- * @author 0030481711036
+ * @author Lucas
  */
+
 public class DaoVendedor {
     private Connection conn;
     
@@ -21,14 +21,14 @@ public class DaoVendedor {
     public void inserir(Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO pooVendedor(cpf, nome, endereco, cidade, uf, cep, ddd, telefone, salarioBase, taxaComissao) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO JavaVendedor(cpfVendedor, nome, endereco, cidade, uf, cep, ddd, telefone, salarioBase, taxaComissao) VALUES(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, vendedor.getCpf());
             ps.setString(2, vendedor.getNome());
             ps.setString(3, vendedor.getEndereco());
             ps.setString(4, vendedor.getCidade());
-            ps.setString(5, vendedor.getUf());
-            ps.setString(6, vendedor.getCep());
-            ps.setString(7, vendedor.getDdd());
+            ps.setString(5, vendedor.getUF());
+            ps.setString(6, vendedor.getCEP());
+            ps.setString(7, vendedor.getDDD());
             ps.setString(8, vendedor.getTelefone());
             ps.setDouble(9, vendedor.getSalarioBase());
             ps.setDouble(10, vendedor.getTaxaComissao());
@@ -42,15 +42,15 @@ public class DaoVendedor {
     public void alterar(Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE pooVendedor set nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, salarioBase = ?, taxaComissao = ?" +
-                                                 "where cpf = ?");
+            ps = conn.prepareStatement("UPDATE JavaVendedor set nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, salarioBase = ?, taxaComissao = ?" +
+                                                 "where cpfVendedor = ?");
             
             ps.setString(1, vendedor.getNome());
             ps.setString(2, vendedor.getEndereco());
             ps.setString(3, vendedor.getCidade());
-            ps.setString(4, vendedor.getUf());
-            ps.setString(5, vendedor.getCep());
-            ps.setString(6, vendedor.getDdd());
+            ps.setString(4, vendedor.getUF());
+            ps.setString(5, vendedor.getCEP());
+            ps.setString(6, vendedor.getDDD());
             ps.setString(7, vendedor.getTelefone());
             ps.setDouble(8, vendedor.getSalarioBase());
             ps.setDouble(9, vendedor.getTaxaComissao());
@@ -67,8 +67,8 @@ public class DaoVendedor {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from pooVendedor where " +
-                                                 "cpf = ?");
+            ps = conn.prepareStatement("SELECT * from JavaVendedor where " +
+                                                 "cpfVendedor = ?");
             
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
@@ -78,9 +78,9 @@ public class DaoVendedor {
                 v.setNome(rs.getString("nome"));
                 v.setEndereco(rs.getString("endereco"));
                 v.setCidade(rs.getString("cidade"));
-                v.setUf(rs.getString("uf"));
-                v.setCep(rs.getString("cep"));
-                v.setDdd(rs.getString("ddd"));
+                v.setUF(rs.getString("uf"));
+                v.setCEP(rs.getString("cep"));
+                v.setDDD(rs.getString("ddd"));
                 v.setTelefone(rs.getString("telefone"));
                 v.setSalarioBase(rs.getDouble("salarioBase"));
                 v.setTaxaComissao(rs.getDouble("taxaComissao"));
@@ -95,7 +95,7 @@ public class DaoVendedor {
      public void excluir(Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM pooVendedor where cpf = ?");
+            ps = conn.prepareStatement("DELETE FROM JavaVendedor where cpfVendedor = ?");
             
             ps.setString(1, vendedor.getCpf());
                       

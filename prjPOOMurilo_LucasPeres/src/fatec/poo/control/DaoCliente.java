@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author 0030481721024
+ * @author Lucas
  */
 public class DaoCliente {
     private Connection conn;
@@ -25,14 +24,14 @@ public class DaoCliente {
     public void inserir(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO pooCliente(cpf, nome, endereco, cidade, uf, cep, ddd, telefone, limiteCred) VALUES(?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO JavaCliente(cpfCliente, nome, endereco, cidade, uf, cep, ddd, telefone, limiteCred) VALUES(?,?,?,?,?,?,?,?,?)");
             ps.setString(1, cliente.getCpf());
             ps.setString(2, cliente.getNome());
             ps.setString(3, cliente.getEndereco());
             ps.setString(4, cliente.getCidade());
-            ps.setString(5, cliente.getUf());
-            ps.setString(6, cliente.getCep());
-            ps.setString(7, cliente.getDdd());
+            ps.setString(5, cliente.getUF());
+            ps.setString(6, cliente.getCEP());
+            ps.setString(7, cliente.getDDD());
             ps.setString(8, cliente.getTelefone());
             ps.setDouble(9, cliente.getLimiteCred());
                       
@@ -45,15 +44,15 @@ public class DaoCliente {
     public void alterar(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE pooCliente set nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, limiteCred = ?, limiteDisp = ?" +
-                                                 "where cpf = ?");
+            ps = conn.prepareStatement("JavaCliente pooCliente set nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, limiteCred = ?, limiteDisp = ?" +
+                                                 "where cpfCliente = ?");
             
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getEndereco());
             ps.setString(3, cliente.getCidade());
-            ps.setString(4, cliente.getUf());
-            ps.setString(5, cliente.getCep());
-            ps.setString(6, cliente.getDdd());
+            ps.setString(4, cliente.getUF());
+            ps.setString(5, cliente.getCEP());
+            ps.setString(6, cliente.getDDD());
             ps.setString(7, cliente.getTelefone());
             ps.setDouble(8, cliente.getLimiteCred());
             ps.setDouble(9, cliente.getLimiteDisp());
@@ -70,8 +69,8 @@ public class DaoCliente {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from pooCliente where " +
-                                                 "cpf = ?");
+            ps = conn.prepareStatement("SELECT * from JavaCliente where " +
+                                                 "cpfCliente = ?");
             
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
@@ -80,9 +79,9 @@ public class DaoCliente {
                 c = new Cliente(cpf, rs.getString("nome"), rs.getDouble("limiteCred"));
                 c.setEndereco(rs.getString("endereco"));
                 c.setCidade(rs.getString("cidade"));
-                c.setUf(rs.getString("uf"));
-                c.setCep(rs.getString("cep"));
-                c.setDdd(rs.getString("ddd"));
+                c.setUF(rs.getString("uf"));
+                c.setCEP(rs.getString("cep"));
+                c.setDDD(rs.getString("ddd"));
                 c.setTelefone(rs.getString("telefone"));
                 c.setLimiteDisp(rs.getDouble("limiteDisp"));
             }

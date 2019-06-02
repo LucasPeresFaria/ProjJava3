@@ -323,10 +323,10 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
             txtNome.setText(vendedor.getNome());
             txtEndereco.setText(vendedor.getEndereco());
             txtCidade.setText(vendedor.getCidade());
-            cmbxUF.setSelectedItem(vendedor.getUf());
-            txtDDD.setText(vendedor.getDdd());
+            cmbxUF.setSelectedItem(vendedor.getUF());
+            txtDDD.setText(vendedor.getDDD());
             txtTelefone.setText(vendedor.getTelefone());
-            txtCEP.setText(vendedor.getCep());
+            txtCEP.setText(vendedor.getCEP());
             txtSalarioBase.setText(Double.toString(vendedor.getSalarioBase()));
            
             btnConsulta.setEnabled(false);
@@ -340,10 +340,10 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
          vendedor = new Vendedor(txtFormatCPF.getText().replaceAll("[,-]", ""),txtNome.getText(),Double.parseDouble(txtSalarioBase.getText()));
         vendedor.setEndereco(txtEndereco.getText());
         vendedor.setCidade(txtCidade.getText());
-        vendedor.setUf(String.valueOf(cmbxUF.getSelectedItem()));
-        vendedor.setDdd(txtDDD.getText());
+        vendedor.setUF(String.valueOf(cmbxUF.getSelectedItem()));
+        vendedor.setDDD(txtDDD.getText());
         vendedor.setTelefone(txtTelefone.getText());
-        vendedor.setCep(txtCEP.getText());
+        vendedor.setCEP(txtCEP.getText());
         vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
   
         daoVendedor.inserir(vendedor);

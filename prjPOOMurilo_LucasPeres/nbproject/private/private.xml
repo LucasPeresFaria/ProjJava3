@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Java/ProjJava4/prjPOOMurilo_LucasPeres/src/fatec/poo/control/DaoCliente.java</file>
-            <file>file:/G:/Java/ProjJava4/prjPOOMurilo_LucasPeres/src/fatec/poo/model/Pessoa.java</file>
+            <file>file:/G:/Java/ProjJava4/prjPOOMurilo_LucasPeres/src/fatec/poo/control/DaoVendedor.java</file>
+            <file>file:/G:/Java/ProjJava4/prjPOOMurilo_LucasPeres/src/fatec/poo/model/Vendedor.java</file>
             <file>file:/G:/Java/ProjJava4/prjPOOMurilo_LucasPeres/src/fatec/poo/model/Cliente.java</file>
+            <file>file:/G:/Java/ProjJava4/prjPOOMurilo_LucasPeres/src/fatec/poo/view/GUICadastroVendedor.java</file>
         </group>
     </open-files>
 </project-private>
