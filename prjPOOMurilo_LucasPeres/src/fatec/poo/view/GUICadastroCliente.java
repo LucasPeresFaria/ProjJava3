@@ -342,7 +342,48 @@ public class GUICadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?")==0){
+            cliente.setNome(txtNome.getText());
+            cliente.setEndereco(txtEndereco.getText());
+            cliente.setCidade(txtCidade.getText());
+            cliente.setUF((String) cmbxUF.getSelectedItem());
+            cliente.setCEP(txtCEP.getText());
+            cliente.setDDD(txtDDD.getText());
+            cliente.setTelefone(txtTelefone.getText());
+            cliente.setLimiteCred(Double.parseDouble(txtLimiteCred.getText()));
+            cliente.setLimiteDisp(Double.parseDouble(lbllLimiteDisp.getText()));
+            daoCliente.alterar(cliente);
+            
+        }
+        
+        txtFormatCPF.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtCEP.setText("");
+        txtLimiteCred.setText("");
+        lbllLimiteDisp.setText("");
+        
+        txtFormatCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtLimiteCred.setEnabled(false);
+        lbllLimiteDisp.setEnabled(false);
+        
+        txtFormatCPF.requestFocus();
+        btnConsulta.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);   
+            
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -367,6 +408,7 @@ public class GUICadastroCliente extends javax.swing.JFrame {
             txtTelefone.setText("");
             txtCEP.setText("");
             txtLimiteCred.setText("");
+            lbllLimiteDisp.setText("");
             
             btnConsulta.setEnabled(true);
             btnIncluir.setEnabled(false);

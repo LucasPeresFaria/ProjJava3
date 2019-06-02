@@ -40,7 +40,7 @@ public class DaoCliente {
     public void alterar(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("JavaCliente pooCliente set nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, limiteCred = ?, limiteDisp = ?" +
+            ps = conn.prepareStatement("Update JavaCliente set nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, limiteCred = ?, limiteDisp = ?" +
                                                  "where cpfCliente = ?");
             
             ps.setString(1, cliente.getNome());
@@ -91,7 +91,7 @@ public class DaoCliente {
      public void excluir(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM pooCliente where cpf = ?");
+            ps = conn.prepareStatement("DELETE FROM JavaCliente where cpfCliente = ?");
             
             ps.setString(1, cliente.getCpf());
                       

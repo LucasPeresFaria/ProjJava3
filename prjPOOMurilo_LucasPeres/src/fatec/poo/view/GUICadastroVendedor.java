@@ -387,7 +387,47 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?")==0){
+            vendedor.setNome(txtNome.getText());
+            vendedor.setEndereco(txtEndereco.getText());
+            vendedor.setCidade(txtCidade.getText());
+            vendedor.setUF((String) cmbxUF.getSelectedItem());
+            vendedor.setCEP(txtCEP.getText());
+            vendedor.setDDD(txtDDD.getText());
+            vendedor.setTelefone(txtTelefone.getText());
+            vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
+            vendedor.setTaxaComissao(Double.parseDouble(txtTaxaComiss.getText()));
+            daoVendedor.alterar(vendedor);
+            
+        }
+        
+        txtFormatCPF.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtCEP.setText("");
+        txtSalarioBase.setText("");
+        txtTaxaComiss.setText("");
+        
+        txtFormatCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtSalarioBase.setEnabled(false);
+        txtTaxaComiss.setEnabled(false);
+        
+        txtFormatCPF.requestFocus();
+        btnConsulta.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
