@@ -100,6 +100,11 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         txtEndereco.setEnabled(false);
 
@@ -136,6 +141,11 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alternar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Taxa Comissão");
 
@@ -305,6 +315,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
             txtTelefone.setEnabled(true);
             txtCEP.setEnabled(true);
             txtSalarioBase.setEnabled(true);
+            txtTaxaComiss.setEnabled(true);
             txtNome.requestFocus();
            
             btnConsulta.setEnabled(false);
@@ -319,6 +330,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
             txtTelefone.setEnabled(true);
             txtCEP.setEnabled(true);
             txtSalarioBase.setEnabled(true);
+            txtTaxaComiss.setEnabled(true);
             
             txtNome.setText(vendedor.getNome());
             txtEndereco.setText(vendedor.getEndereco());
@@ -328,6 +340,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
             txtTelefone.setText(vendedor.getTelefone());
             txtCEP.setText(vendedor.getCEP());
             txtSalarioBase.setText(Double.toString(vendedor.getSalarioBase()));
+            txtTaxaComiss.setText(Double.toString(vendedor.getTaxaComissao()));
            
             btnConsulta.setEnabled(false);
             btnIncluir.setEnabled(false);
@@ -337,7 +350,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultaActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-         vendedor = new Vendedor(txtFormatCPF.getText().replaceAll("[,-]", ""),txtNome.getText(),Double.parseDouble(txtSalarioBase.getText()));
+        vendedor = new Vendedor(txtFormatCPF.getText().replaceAll("[,-]", ""),txtNome.getText(),Double.parseDouble(txtSalarioBase.getText()));
         vendedor.setEndereco(txtEndereco.getText());
         vendedor.setCidade(txtCidade.getText());
         vendedor.setUF(String.valueOf(cmbxUF.getSelectedItem()));
@@ -345,6 +358,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         vendedor.setTelefone(txtTelefone.getText());
         vendedor.setCEP(txtCEP.getText());
         vendedor.setSalarioBase(Double.parseDouble(txtSalarioBase.getText()));
+        vendedor.setTaxaComissao(Double.parseDouble(txtTaxaComiss.getText()));
   
         daoVendedor.inserir(vendedor);
        
@@ -366,10 +380,48 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
         txtTelefone.setText("");
         txtCEP.setText("");
         txtSalarioBase.setText("");
+        txtTaxaComiss.setText("");
        
         btnConsulta.setEnabled(true);
         btnIncluir.setEnabled(false);
     }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+          if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?")== 0){
+            daoVendedor.excluir(vendedor);
+            
+            txtFormatCPF.setEnabled(true);
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            cmbxUF.setEnabled(false);
+            txtDDD.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCEP.setEnabled(false);
+            txtSalarioBase.setEnabled(false);
+            txtTaxaComiss.setEnabled(false);
+            
+            txtFormatCPF.setText("");
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            cmbxUF.setSelectedItem("");
+            txtDDD.setText("");
+            txtTelefone.setText("");
+            txtCEP.setText("");
+            txtSalarioBase.setText("");
+            txtTaxaComiss.setText("");
+            
+            btnConsulta.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+          }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
