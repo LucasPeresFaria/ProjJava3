@@ -272,6 +272,7 @@ public class GUICadastroCliente extends javax.swing.JFrame {
             txtTelefone.setEnabled(true);
             txtCEP.setEnabled(true);
             txtLimiteCred.setEnabled(true);
+            lbllLimiteDisp.setEnabled(true);
             txtNome.requestFocus();
            
             btnConsulta.setEnabled(false);

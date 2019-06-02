@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fatec.poo.control;
 
 import fatec.poo.model.Cliente;
@@ -34,6 +29,7 @@ public class DaoCliente {
             ps.setString(7, cliente.getDDD());
             ps.setString(8, cliente.getTelefone());
             ps.setDouble(9, cliente.getLimiteCred());
+            ps.setDouble(9, cliente.getLimiteDisp());
                       
             ps.execute();
         } catch (SQLException ex) {

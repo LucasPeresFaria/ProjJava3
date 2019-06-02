@@ -34,6 +34,7 @@ public class Cliente extends Pessoa{
         this.limiteDisp -= limiteDisp;
     }
     
+/*---------------Metodos operacionais-------------------*/  
     public void addPedido(Pedido p){
         pedidos.add(p);
         p.setCliente(this);
