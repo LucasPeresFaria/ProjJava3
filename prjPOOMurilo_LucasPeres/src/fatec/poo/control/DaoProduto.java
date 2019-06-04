@@ -19,7 +19,7 @@ public class DaoProduto {
     public void inserir(Produto produto) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO Produto(codigo,descricao,qtdeEstoque,unidadeMedida,preco,estoqueMinimo) VALUES(?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO JavaProduto(codigo,descricao,qtdeEstoque,unidadeMedida,preco,estoqueMinimo) VALUES(?,?,?,?,?,?)");
             ps.setString(1,produto.getCodigo());
             ps.setString(2,produto.getDescricao());
             ps.setDouble(3,produto.getQtdeEstoque());
@@ -36,7 +36,7 @@ public class DaoProduto {
     public void alterar(Produto produto) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE Produto set descricao = ?,qtdeEstoque = ?,unidadeMedida = ?,preco = ?,estoqueMinimo = ? " +
+            ps = conn.prepareStatement("UPDATE JavaProduto set descricao = ?,qtdeEstoque = ?,unidadeMedida = ?,preco = ?,estoqueMinimo = ? " +
                                         "where codigo = ?");
 
             ps.setString(1,produto.getDescricao());
@@ -44,6 +44,7 @@ public class DaoProduto {
             ps.setString(3,produto.getUnidadeMedida());
             ps.setDouble(4,produto.getPreco());
             ps.setDouble(5,produto.getEstoqueMinimo());
+            ps.setString(6,produto.getCodigo());
                       
             ps.execute();
         } catch (SQLException ex) {
@@ -54,7 +55,7 @@ public class DaoProduto {
      public void excluir(Produto produto) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM Produto where codigo = ?");
+            ps = conn.prepareStatement("DELETE FROM JavaProduto where codigo = ?");
             
             ps.setString(1, produto.getCodigo());
                       
@@ -69,7 +70,7 @@ public class DaoProduto {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from Produto where " +
+            ps = conn.prepareStatement("SELECT * from JavaProduto where " +
                                                  "codigo = ?");
             
             ps.setString(1, codigo);

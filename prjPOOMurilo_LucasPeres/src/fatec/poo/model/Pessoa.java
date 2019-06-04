@@ -15,6 +15,7 @@ public class Pessoa {
     private String cep;
     private String ddd;
     private String telefone;
+    private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
     public Pessoa(String cpf, String nome) {
         this.cpf = cpf;
@@ -79,5 +80,35 @@ public class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }     
+    }
+    
+    private static int calcularDigito(String str, int[] peso) {
+        int soma = 0;
+        for (int indice = str.length() - 1, digito; indice >= 0; indice--) {
+            digito = Integer.parseInt(str.substring(indice, indice + 1));
+            soma += digito * peso[peso.length - str.length() + indice];
+        }
+        soma = 11 - soma % 11;
+        return soma > 9 ? 0 : soma;
+    }
+
+    public static boolean validarCPF(String cpf) {
+        int aux = 0;
+        if ((cpf == null) || (cpf.length() != 11)) {
+            return false;
+        }
+        for (int i = 0; i < 10; i++) {
+            if (cpf.charAt(i) != cpf.charAt(i+1)){
+                aux = 1;
+            }
+        }
+        if (aux == 0){
+            return false;
+        }
+        Integer digito1 = calcularDigito(cpf.substring(0, 9), pesoCPF);
+        Integer digito2 = calcularDigito(cpf.substring(0, 9) + digito1, pesoCPF);
+        return cpf.equals(cpf.substring(0, 9) + digito1.toString() + digito2.toString());
+    }
+    
+    
 }

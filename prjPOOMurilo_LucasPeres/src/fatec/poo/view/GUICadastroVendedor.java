@@ -290,9 +290,9 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        conexao = new Conexao("SYSTEM","Lelo#2000");
+        conexao = new Conexao("BD1721015","BD1721015");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoVendedor = new DaoVendedor(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
 
@@ -302,6 +302,20 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        String cpf = txtFormatCPF.getText().replace(".", "").replace("-", "");
+        cpf = cpf.replaceAll("\\D", "");
+        if (!Pessoa.validarCPF(cpf)) {
+            try {
+                throw new Exception("CPF é inválido!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }         
+            txtFormatCPF.requestFocus();
+            txtFormatCPF.setText("");
+
+
+        } else {       
+        
         vendedor = null;
         vendedor = daoVendedor.consultar(txtFormatCPF.getText().replaceAll("[,-]", ""));      
         
@@ -347,6 +361,7 @@ public class GUICadastroVendedor extends javax.swing.JFrame {
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
+      }
     }//GEN-LAST:event_btnConsultaActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
